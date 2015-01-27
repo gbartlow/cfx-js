@@ -1,47 +1,50 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var cfx = module.exports = {};
+if(typeof window !== 'undefined') window.cfx = cfx;
+
+cfx.env = require('./env');
+cfx.window = require('./window');
+cfx.objects = require('./objects');
+cfx.arrays = require('./arrays');
+cfx.events = require('./events');
+cfx.paths = require('./paths');
+},{"./arrays":3,"./env":10,"./events":11,"./objects":12,"./paths":18,"./window":20}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
+var queue = [];
+var draining = false;
 
-process.nextTick = (function () {
-    var canSetImmediate = typeof window !== 'undefined'
-    && window.setImmediate;
-    var canPost = typeof window !== 'undefined'
-    && window.postMessage && window.addEventListener
-    ;
-
-    if (canSetImmediate) {
-        return function (f) { return window.setImmediate(f) };
+function drainQueue() {
+    if (draining) {
+        return;
     }
-
-    if (canPost) {
-        var queue = [];
-        window.addEventListener('message', function (ev) {
-            var source = ev.source;
-            if ((source === window || source === null) && ev.data === 'process-tick') {
-                ev.stopPropagation();
-                if (queue.length > 0) {
-                    var fn = queue.shift();
-                    fn();
-                }
-            }
-        }, true);
-
-        return function nextTick(fn) {
-            queue.push(fn);
-            window.postMessage('process-tick', '*');
-        };
+    draining = true;
+    var currentQueue;
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        var i = -1;
+        while (++i < len) {
+            currentQueue[i]();
+        }
+        len = queue.length;
     }
-
-    return function nextTick(fn) {
-        setTimeout(fn, 0);
-    };
-})();
+    draining = false;
+}
+process.nextTick = function (fun) {
+    queue.push(fun);
+    if (!draining) {
+        setTimeout(drainQueue, 0);
+    }
+};
 
 process.title = 'browser';
 process.browser = true;
 process.env = {};
 process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
 
 function noop() {}
 
@@ -55,15 +58,16 @@ process.emit = noop;
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
-}
+};
 
 // TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
+process.umask = function() { return 0; };
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var arrays = module.exports = {};
 
 arrays.forEach = require('./arrays/forEach');
@@ -72,7 +76,7 @@ arrays.removeAt = require('./arrays/removeAt');
 arrays.remove = require('./arrays/remove');
 arrays.removeWhere = require('./arrays/removeWhere');
 arrays.simultaneous = require('./arrays/simultaneous');
-},{"./arrays/forEach":3,"./arrays/generate":4,"./arrays/remove":5,"./arrays/removeAt":6,"./arrays/removeWhere":7,"./arrays/simultaneous":8}],3:[function(require,module,exports){
+},{"./arrays/forEach":4,"./arrays/generate":5,"./arrays/remove":6,"./arrays/removeAt":7,"./arrays/removeWhere":8,"./arrays/simultaneous":9}],4:[function(require,module,exports){
 // Modified from: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
 // on 7/10/2014
 
@@ -131,7 +135,7 @@ var forEach = function (array, callback) {
 };
 
 module.exports = forEach;
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var clone = require('../objects/clone');
 
 /**
@@ -158,7 +162,7 @@ function generate(count, value) {
 }
 
 module.exports = generate;
-},{"../objects/clone":13}],5:[function(require,module,exports){
+},{"../objects/clone":13}],6:[function(require,module,exports){
 /**
  * Splices the given index out of the array
  * @param array source array
@@ -177,7 +181,7 @@ function remove(array, element) {
 }
 
 module.exports = remove;
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * Splices the given index out of the array
  * @param array source array
@@ -193,7 +197,7 @@ function removeAt(array, index) {
 }
 
 module.exports = removeAt;
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * @callback removeCallback
  * @param {*} element - Element at the index
@@ -223,7 +227,7 @@ function removeWhere(array, callback) {
 }
 
 module.exports = removeWhere;
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * @callback forEachCallback
  * @param {...*} elements - Elements at the index, for each array (first iteration: a[0], b[0]. Second: a[1], b[1], etc.)
@@ -299,17 +303,7 @@ function simultaneous() {
 }
 
 module.exports = simultaneous;
-},{}],9:[function(require,module,exports){
-var cfx = module.exports = {};
-if(typeof window !== 'undefined') window.cfx = cfx;
-
-cfx.env = require('./env');
-cfx.window = require('./window');
-cfx.objects = require('./objects');
-cfx.arrays = require('./arrays');
-cfx.events = require('./events');
-cfx.paths = require('./paths');
-},{"./arrays":2,"./env":10,"./events":11,"./objects":12,"./paths":18,"./window":20}],10:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 (function (process){
 var env = module.exports = {}
     , win = require('./window');
@@ -354,8 +348,8 @@ env.determine = function() {
  * @type {String}
  */
 env.ENV = env.determine();
-}).call(this,require("+NscNm"))
-},{"+NscNm":1,"./window":20}],11:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./window":20,"_process":2}],11:[function(require,module,exports){
 var events = module.exports = {};
 
 var eventList = {};
@@ -564,4 +558,4 @@ win.redirect = function(url) {
 win.scrollY = function() {
     return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 };
-},{}]},{},[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]);
+},{}]},{},[1]);
