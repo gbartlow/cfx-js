@@ -1,0 +1,62 @@
+aside, article
+    margin 0
+    padding 10px
+    box-sizing border-box
+    display inline-block
+    font-size 18px
+    vertical-align top
+    height 100%
+    overflow-y auto
+
+article
+    width calc(100% - 300px)
+
+    padding-left 2.5em
+    padding-right 2.5em
+
+    h3
+        margin-top 1.5em
+
+    h1, h2, h3
+        margin-left -1em
+
+aside
+    background #f2f2f2
+    border-right 1px solid #ddd
+    width 300px
+    box-shadow inset -2px 0 3px rgba(0,0,0,.05)
+
+    ul
+        list-style-type none
+        font-weight bold
+        margin 0
+        padding 0
+
+        &:before
+            content attr(data-module)
+            display block
+            font-size 28px
+            margin-bottom .25em
+
+        li
+            text-indent 1em
+            color #4a4a4a
+            font-size 20px
+            margin-bottom .25em
+
+    label
+        font-weight bold
+        display block
+        font-size 28px
+        margin-bottom .25em
+
+    a
+        text-indent 1em
+        color #4a4a4a
+        font-size 20px
+        margin-bottom .25em
+        text-decoration none
+        display block
+
+        &:hover
+            text-decoration underline

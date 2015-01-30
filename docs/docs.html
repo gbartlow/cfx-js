@@ -1,0 +1,21 @@
+<h2 id='cfx'>cfx</h2><p>This library can be installed via bower, for browser use</p>
+<pre><code>bower install cfx-js
+</code></pre><p>And npm, for use in Node applications, or with Browserify</p>
+<pre><code>npm install cfx-js
+</code></pre><p>To include the code, either</p>
+<pre><code>var cfx = require(&#39;cfx-js&#39;)
+</code></pre><p>or</p>
+<pre><code>&lt;script src=&#39;bower_components/cfx-js/dist/cfx.js&#39;&gt;&lt;/script&gt;
+</code></pre><p>From that point on, everything in this library will be accessible via the cfx object.</p>
+<h2 id='cfx.arrays'>cfx.arrays</h2><p>A collection of methods to handle arrays.</p>
+<a class='anchor' name='cfx.arrays.forEach' href='#'></a><h3 id='forEach(array, callback)'>forEach(array, callback)</h3><p>Loops over every item in an array, calling the given callback with <code>(value, index, array)</code></p>
+<a class='anchor' name='cfx.arrays.generate' href='#'></a><h3 id='generate(count, [value])'>generate(count, [value])</h3><p>Generates an array of the given size. If no value is given, then each entry is <code>undefined</code></p>
+<p>If the value is NOT a function, then each entry in the array will be a cloned value (not a reference).</p>
+<pre><code>cfx.arrays.generate(3, {foo:&#39;bar&#39;})
+&gt;&gt; [{foo:&#39;bar&#39;}, {foo:&#39;bar&#39;}, {foo:&#39;bar&#39;}]
+</code></pre><p>If the value IS a function, then each entry will be the return value of the function. Your value function will be called with <code>(index)</code></p>
+<pre><code>cfx.arrays.generate(3, function(i) {
+    return &quot;index&quot;+i
+})
+&gt;&gt; [&#39;index0&#39;, &#39;index1&#39;, &#39;index2&#39;]
+</code></pre>
