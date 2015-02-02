@@ -9,44 +9,7 @@
 <body>
     <aside>
         <h1>cfx-js by CARFAX</h1>
-
-        <label>cfx.arrays</label>
-            <a href="#cfx.arrays.forEach">forEach()</a>
-            <a href="#cfx.arrays.generate">generate()</a>
-            <a href="#cfx.arrays.remove">remove()</a>
-            <a href="#cfx.arrays.removeAt">removeAt()</a>
-            <a href="#cfx.arrays.removeWhere">removeWhere()</a>
-            <a href="#cfx.arrays.simultaneous">simultaneous()</a>
-
-        <h2>cfx.env</h2>
-            <h3>LOCAL</h3>
-            <h3>DEV</h3>
-            <h3>ALPHA</h3>
-            <h3>BETA</h3>
-            <h3>PROD</h3>
-            <h3>ENV</h3>
-            <h3>isBrowser()</h3>
-            <h3>determine()</h3>
-
-        <h2>cfx.events</h2>
-            <h3>on()</h3>
-            <h3>broadcast()</h3>
-
-        <h2>cfx.objects</h2>
-            <h3>clone()</h3>
-            <h3>contains()</h3>
-            <h3>extend()</h3>
-            <h3>forEach()</h3>
-            <h3>toArray()</h3>
-
-        <h2>cfx.paths</h2>
-            <h3>join()</h3>
-
-        <h2>cfx.window</h2>
-            <h3>domain</h3>
-            <h3>path</h3>
-            <h3>redirect()</h3>
-            <h3>scrollY()</h3>
+        <label>cfx.arrays</label><a href='#cfx.arrays.forEach'>forEach()</a><a href='#cfx.arrays.generate'>generate()</a><a href='#cfx.arrays.remove'>remove()</a><a href='#cfx.arrays.removeAt'>removeAt()</a><a href='#cfx.arrays.removeWhere'>removeWhere()</a><a href='#cfx.arrays.simultaneous'>simultaneous()</a><label>cfx.env</label><a href='#cfx.env.Level Constants'>Level Constants</a><a href='#cfx.env.ENV'>ENV</a><a href='#cfx.env.isBrowser'>isBrowser()</a><a href='#cfx.env.determine'>determine()</a><label>cfx.events</label><a href='#cfx.events.on'>on()</a><a href='#cfx.events.trigger'>trigger()</a><a href='#cfx.events.Multiple listeners'>Multiple listeners</a><label>cfx.objects</label><a href='#cfx.objects.clone'>clone()</a><a href='#cfx.objects.contains'>contains()</a><a href='#cfx.objects.extend'>extend()</a><a href='#cfx.objects.forEach'>forEach()</a><a href='#cfx.objects.toArray'>toArray()</a><label>cfx.paths</label><a href='#cfx.paths.join'>join()</a><label>cfx.window</label><a href='#cfx.window.domain'>domain</a><a href='#cfx.window.path'>path</a><a href='#cfx.window.redirect'>redirect()</a>
     </aside>
 
     <article>
@@ -60,8 +23,15 @@
 <pre><code>&lt;script src=&#39;bower_components/cfx-js/dist/cfx.js&#39;&gt;&lt;/script&gt;
 </code></pre><p>From that point on, everything in this library will be accessible via the cfx object.</p>
 <h2 id='cfx.arrays'>cfx.arrays</h2><p>A collection of methods to handle arrays.</p>
-<a class='anchor' name='cfx.arrays.forEach' href='#'></a><h3 id='forEach(array, callback)'>forEach(array, callback)</h3><p>Loops over every item in an array, calling the given callback with <code>(value, index, array)</code></p>
-<a class='anchor' name='cfx.arrays.generate' href='#'></a><h3 id='generate(count, [value])'>generate(count, [value])</h3><p>Generates an array of the given size. If no value is given, then each entry is <code>undefined</code></p>
+<a class='anchor' name='cfx.arrays.forEach' href='#'></a><h3 id='cfx.arrays.forEach'>forEach(array, callback)</h3><p>Loops over every item in an array, calling the given callback with <code>(value, index, array)</code></p>
+<pre><code>cfx.arrays.forEach([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], function(value, i, array) {
+    console.log(value, i)
+});
+
+&gt;&gt; &#39;a&#39;, 0
+&gt;&gt; &#39;b&#39;, 1
+&gt;&gt; &#39;c&#39;, 2
+</code></pre><a class='anchor' name='cfx.arrays.generate' href='#'></a><h3 id='cfx.arrays.generate'>generate(count, [value])</h3><p>Generates an array of the given size. If no value is given, then each entry is <code>undefined</code></p>
 <p>If the value is NOT a function, then each entry in the array will be a cloned value (not a reference).</p>
 <pre><code>cfx.arrays.generate(3, {foo:&#39;bar&#39;})
 &gt;&gt; [{foo:&#39;bar&#39;}, {foo:&#39;bar&#39;}, {foo:&#39;bar&#39;}]
@@ -70,7 +40,158 @@
     return &quot;index&quot;+i
 })
 &gt;&gt; [&#39;index0&#39;, &#39;index1&#39;, &#39;index2&#39;]
-</code></pre>
+</code></pre><a class='anchor' name='cfx.arrays.remove' href='#'></a><h3 id='cfx.arrays.remove'>remove(array, element)</h3><p>Removes the element from the array. Does not modify the original array, but returns a clone.</p>
+<pre><code>cfx.arrays.remove([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], &#39;b&#39;)
+&gt;&gt; [&#39;a&#39;, &#39;c&#39;]
+</code></pre><a class='anchor' name='cfx.arrays.removeAt' href='#'></a><h3 id='cfx.arrays.removeAt'>removeAt(array, index)</h3><p>Splices the given index out of the array. Does not modify the original array, but returns a clone.</p>
+<pre><code>cfx.arrays.removeAt([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;], 1)
+&gt;&gt; [&#39;a&#39;, &#39;c&#39;, &#39;d&#39;]
+</code></pre><a class='anchor' name='cfx.arrays.removeWhere' href='#'></a><h3 id='cfx.arrays.removeWhere'>removeWhere(array, callback)</h3><p>Removes all elements that pass the callback. The callback must return exactly (===) a true boolean value to be considered &#39;passed&#39;.</p>
+<pre><code>cfx.arrays.removeWhere([1, 2, 3, 4, 5, 6], function(element, i, arr) {
+    return element % 2 == 0;
+});
+&gt;&gt; [1, 3, 5]
+</code></pre><a class='anchor' name='cfx.arrays.simultaneous' href='#'></a><h3 id='cfx.arrays.simultaneous'>simultaneous(arrays...).forEach(callback)</h3><p>Iterates over a list of arrays. The callback is called with <code>(values..., index)</code> where values is the element in each array at the given index.</p>
+<pre><code>var array1 = [1, 2, 3], 
+    array2 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+
+cfx.arrays.simultaneous(array1, array2).forEach(function(element1, element2, i) {
+    console.log(element1, element2, i)
+});
+
+&gt;&gt; 1, &#39;a&#39;, 0
+&gt;&gt; 2, &#39;b&#39;, 1
+&gt;&gt; 3, &#39;c&#39;, 2
+</code></pre><h2 id='cfx.env'>cfx.env</h2><p>A collection of constants and functions to help determine the environment.</p>
+<a class='anchor' name='cfx.env.Level Constants' href='#'></a><h3 id='cfx.env.Level Constants'>Level Constants (LOCAL, ALPHA, PROD, etc.)</h3><p>A handful of Constants to help describe environments.</p>
+<pre><code>cfx.env.LOCAL = &#39;local&#39;
+cfx.env.DEV = &#39;dev&#39;
+cfx.env.ALPHA = &#39;alpha&#39;
+cfx.env.BETA = &#39;beta&#39;
+cfx.env.PROD = &#39;prod&#39;
+</code></pre><a class='anchor' name='cfx.env.ENV' href='#'></a><h3 id='cfx.env.ENV'>ENV</h3><p>A &#39;final&#39; value  that describes the current environment. Set at initialization, and when <code>cfx.env.determine()</code> is called.</p>
+<p>If code is running on in a local development environment, <code>cfx.env.ENV</code> will equal <code>cfx.env.LOCAL</code>.</p>
+<p>In production, <code>cfx.env.ENV</code> will equal <code>cfx.env.PROD</code>, etc.</p>
+<a class='anchor' name='cfx.env.isBrowser' href='#'></a><h3 id='cfx.env.isBrowser'>isBrowser()</h3><p>Returns <code>true</code> if <code>process.title</code> equals <code>&#39;browser&#39;</code>, otherwise <code>false</code>.</p>
+<p>Though normally not available in the browser, <code>process.env</code> is brought to you by Browserify.</p>
+<a class='anchor' name='cfx.env.determine' href='#'></a><h3 id='cfx.env.determine'>determine()</h3><p>Returns the current environment (<code>cfx.env.LOCAL</code>, <code>cfx.env.BETA</code>, etc.). Will also set <code>cfx.env.ENV</code> to this value.</p>
+<h2 id='cfx.events'>cfx.events</h2><p>Allows messages to be sent and received from different otherwise unconnected parts of an application.</p>
+<a class='anchor' name='cfx.events.on' href='#'></a><h3 id='cfx.events.on'>on(name, callback)</h3><p>Registers an event listener with <code>cfx.events</code>. The callback will be called with whatever values the event was triggered with.</p>
+<pre><code>cfx.events.on(&#39;myEvent&#39;, function(foo, bar) {
+    console.log(&#39;myEvent triggered&#39;, foo, bar)
+})
+</code></pre><a class='anchor' name='cfx.events.trigger' href='#'></a><h3 id='cfx.events.trigger'>trigger(name, args...)</h3><p>Triggers all listeners with the specified event name.  Passes all <code>args</code> through to the listener&#39;s callback.</p>
+<pre><code>cfx.events.trigger(&#39;myEvent&#39;, &#39;hello&#39;, &#39;world&#39;)
+
+&gt;&gt; &#39;myEvent triggered&#39;, &#39;hello&#39;, &#39;world&#39;
+</code></pre><a class='anchor' name='cfx.events.Multiple listeners' href='#'></a><h3 id='cfx.events.Multiple listeners'>Multiple listeners</h3><p>You may register as many listeners as you like to the same event name. All of them will be triggered when the event is triggered.</p>
+<pre><code>cfx.events.on(&#39;myEvent&#39;, function(foo, bar) {
+    console.log(&#39;myEvent listener 1&#39;, foo, bar)
+})
+cfx.events.on(&#39;myEvent&#39;, function(foo, bar) {
+    console.log(&#39;myEvent listener 2&#39;, bar, foo)
+})
+
+cfx.events.trigger(&#39;myEvent&#39;, &#39;hello&#39;, &#39;world&#39;)
+
+&gt;&gt; &#39;myEvent listener 1&#39;, &#39;hello&#39;, &#39;world&#39;
+&gt;&gt; &#39;myEvent listener 2&#39;, &#39;world&#39;, &#39;hello&#39;
+</code></pre><h2 id='cfx.objects'>cfx.objects</h2><p>A collection of methods to handle objects.</p>
+<a class='anchor' name='cfx.objects.clone' href='#'></a><h3 id='cfx.objects.clone'>clone(obj)</h3><p>Creates a deep clone of the object. Changing the original after creating the clone will not affect the clone, and vice-versa.</p>
+<p>Works on primitives, objects, and arrays (Date, RegExp, and other exotic structures are not yet supported).</p>
+<pre><code>var a = { foo: &#39;bar&#39;, bar: &#39;foo&#39; }
+
+var b = cfx.objects.clone(a)
+
+a.foo = &#39;foobar&#39;
+
+console.log(b)
+&gt;&gt; { foo: &#39;bar&#39;, bar: &#39;foo&#39; }
+</code></pre><a class='anchor' name='cfx.objects.contains' href='#'></a><h3 id='cfx.objects.contains'>contains(obj, testObj)</h3><p>Checks whether or not an object contains the specified key-value pairs.</p>
+<pre><code>cfx.objects.contains({ foo: &#39;bar&#39;, bar: &#39;foo&#39; }, { foo: &#39;bar&#39; })
+&gt;&gt; true
+
+cfx.objects.contains({ bar: &#39;foo&#39; }, { foo: &#39;bar&#39; }) // missing key
+&gt;&gt; false 
+
+cfx.objects.contains({ bar: &#39;foo&#39; }, { bar: &#39;bar&#39; }) // value doesn&#39;t match
+&gt;&gt; false
+</code></pre><h4 id='Nested tests'>Nested tests</h4><p>This method will work on nested objects</p>
+<pre><code>var a = {
+    foo: &#39;bar&#39;,
+    bar: { a: 1, b: 2 }
+}
+
+cfx.objects.contains(a, { 
+    bar: { a: 1 } 
+})
+&gt;&gt; true
+</code></pre><a class='anchor' name='cfx.objects.extend' href='#'></a><h3 id='cfx.objects.extend'>extend(a, b, [modify])</h3><p>Creates a new object from the values of <code>a</code>, and extends/overwrites with values of<code>b</code>.</p>
+<pre><code>cfx.objects.extend({ foo: &#39;bar&#39;, bar: &#39;foo&#39; }, {
+    derp: &#39;herp&#39;,
+    foo: &#39;fiz&#39;
+})
+&gt;&gt; { foo: &#39;fiz&#39;, bar: &#39;foo&#39;, derp: &#39;herp&#39; }
+</code></pre><p>If <code>modify</code> is true, the original object will be modified, <em>NOT</em> cloned. Useful for modified passed arguments.</p>
+<pre><code>var fn = function(obj, val) {
+    cfx.objects.extend(obj, { foo: val }, true)
+}
+
+var a = { foo: &#39;bar&#39; }
+
+fn(a, &#39;fiz&#39;)
+
+console.log(a)
+&gt;&gt; { foo: &#39;fiz&#39; }
+</code></pre><a class='anchor' name='cfx.objects.forEach' href='#'></a><h3 id='cfx.objects.forEach'>forEach(obj, callback)</h3><p>Loops over every key-value pair in the object, calling the given callback with <code>(value, key, obj)</code></p>
+<pre><code>cfx.objects.forEach({ a: &#39;foo&#39;, b: &#39;bar&#39;, c: &#39;fiz&#39;}, function(value, key, obj) {
+    console.log(value, key)
+});
+
+&gt;&gt; &#39;foo&#39;, &#39;a&#39;
+&gt;&gt; &#39;bar&#39;, &#39;b&#39;
+&gt;&gt; &#39;fiz&#39;, &#39;c&#39;
+</code></pre><a class='anchor' name='cfx.objects.toArray' href='#'></a><h3 id='cfx.objects.toArray'>toArray(obj)</h3><p>Creates an array from each value in the object.</p>
+<pre><code>var obj = {
+    a: { foo: &#39;bar&#39; },
+    b: { fiz: &#39;buz&#39; }
+}
+
+cfx.objects.toArray(obj)
+&gt;&gt; [{foo: &#39;bar&#39;}, {fiz: &#39;buz&#39;}]
+</code></pre><h2 id='cfx.paths'>cfx.paths</h2><p>Manipulation of string paths.</p>
+<a class='anchor' name='cfx.paths.join' href='#'></a><h3 id='cfx.paths.join'>join(paths...)</h3><p>Joins any number of paths together, normalizing slashes (/ vs \), and removing duplicate slashes.</p>
+<p>Does not add or remove leading or trailing slashes.</p>
+<pre><code>cfx.paths.join(&#39;/leading&#39;, &#39;trailing/&#39;);
+&gt;&gt; &#39;/leading/trailing/&#39;
+
+cfx.paths.join(&#39;leading&#39;, &#39;trailing&#39;);
+&gt;&gt; &#39;leading/trailing&#39;
+</code></pre><p>Will gracefully handle slashes in the middle of strings</p>
+<pre><code>cfx.paths.join(&#39;le/ad/ing&#39;, &#39;tr/ailing&#39;);
+&gt;&gt; &#39;le/ad/ing/tr/ailing&#39;
+</code></pre><p>Removes duplicates.</p>
+<pre><code>cfx.paths.join(&#39;le///ad//ing&#39;, &#39;tr//ailing&#39;);
+&gt;&gt; &#39;le/ad/ing/tr/ailing&#39;
+</code></pre><p>Normalizes all slashes to be forward facing.</p>
+<pre><code>cfx.paths.join(&#39;le\ad\\ing&#39;, &#39;tr\\\ailing&#39;);
+&gt;&gt; &#39;le/ad/ing/tr/ailing&#39;
+</code></pre><h2 id='cfx.window'>cfx.window</h2><p>Polyfills for cross-browser functionality, and aliases for easy testing.</p>
+<a class='anchor' name='cfx.window.domain' href='#'></a><h3 id='cfx.window.domain'>domain</h3><p>Alias for <code>window.location.hostname</code></p>
+<p>Useful for mocking the domain in tests (as changing <code>location.hostname</code> will redirect the window).</p>
+<p>Your other functions should check the alias, too, to make use of it.</p>
+<pre><code>function isTestServer() {
+    return cfx.window.domain.indexOf(&#39;test.&#39;) &gt; -1
+}
+
+it(&#39;test.domain.com&#39;, function() {
+    cfx.window.domain = &#39;test.domain.com&#39;
+
+    expect( isTestServer() ).toEqual( true )
+});
+</code></pre><a class='anchor' name='cfx.window.path' href='#'></a><h3 id='cfx.window.path'>path</h3><p>Alias for <code>window.location.pathname</code>. Useful for testing, see <code>cfx.window.domain</code> for a similar example.</p>
+<a class='anchor' name='cfx.window.redirect' href='#'></a><h3 id='cfx.window.redirect'>redirect(url)</h3><p>Redirects the current window to the given URL.</p>
+
     </article>
 
 </body>

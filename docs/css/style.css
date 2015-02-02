@@ -16,6 +16,7 @@ article {
 }
 article h3 {
   margin-top: 1.5em;
+  color: #007fb2;
 }
 article h1,
 article h2,
@@ -27,6 +28,9 @@ aside {
   border-right: 1px solid #ddd;
   width: 300px;
   box-shadow: inset -2px 0 3px rgba(0,0,0,0.05);
+}
+aside h1 {
+  color: #007fb2;
 }
 aside ul {
   list-style-type: none;
@@ -51,9 +55,10 @@ aside label {
   display: block;
   font-size: 28px;
   margin-bottom: 0.25em;
+  text-indent: 0.5em;
 }
 aside a {
-  text-indent: 1em;
+  text-indent: 1.75em;
   color: #4a4a4a;
   font-size: 20px;
   margin-bottom: 0.25em;

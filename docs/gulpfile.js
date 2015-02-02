@@ -1,9 +1,12 @@
 var gulp = require('gulp'),
     fs = require('fs'),
     path = require('path'),
-    compiler = require('./compiler'),
     rename = require('gulp-rename'),
-    htmlreplace = require('gulp-html-replace');
+    htmlreplace = require('gulp-html-replace'),
+    compilers = {
+        article: require('./compilers/article'),
+        aside: require('./compilers/aside')
+    };
 
 var paths = {
     source: {
@@ -21,11 +24,27 @@ paths.watched = paths.source.md
     .concat(['!'+ path.join(paths.dest.index, paths.dest.index_name)]);
 
 gulp.task('docs', function() {
-    var articleHtml = compiler( fs.readFileSync('docs.md', 'UTF-8') );
+    var markdown = ['intro.md'].concat(
+            fs.readdirSync('markdown').map(function(f){
+                return path.join('markdown', f);
+            })
+        ).map(function(filename) {
+            return fs.readFileSync(filename, 'UTF-8');
+        });
+    
+    var articleHtml = markdown.map(function(md) {
+            return compilers.article(md);
+        })
+        .reduce(function(html, fileHtml) {
+            return html + fileHtml;
+        }, '');
+
+    markdown.forEach(compilers.aside.feed);
     
     return gulp.src(paths.source.template)
         .pipe(htmlreplace({
-            article: articleHtml
+            article: articleHtml,
+            aside: compilers.aside.render()
         }))
         .pipe(rename('index.html'))
         .pipe(gulp.dest(paths.dest.index))
