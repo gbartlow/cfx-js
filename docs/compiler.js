@@ -4,8 +4,6 @@ var marked = require('marked'),
     renderer = new marked.Renderer();
 
 renderer.heading = function (text, level) {
-//    var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-
     if(level == 2) {
         return format("<a class='anchor' name='{text}' href='#'></a>", {
             text: text
@@ -18,8 +16,11 @@ renderer.heading = function (text, level) {
     });
 };
 
-var content = fs.readFileSync('docs.md', 'UTF-8');
+module.exports = function(content) {
+//    var content = fs.readFileSync('docs.md', 'UTF-8');
 
-var html = marked(content, { renderer: renderer });
+    var html = marked(content, { renderer: renderer });
 
-fs.writeFileSync('docs.html', html, 'UTF-8');
+//    fs.writeFileSync('docs.html', html, 'UTF-8');
+    return html;
+};
