@@ -11,10 +11,12 @@ var gulp = require('gulp'),
 var paths = {
     source: {
         md: ['**/*.md'],
+        test_template: ['template_test.html'],
         template: ['template.html'],
         html: ['**/*.html']
     },
     dest: {
+        test: 'test',
         index: '..',
         index_name: 'index.html'
     }
@@ -48,6 +50,28 @@ gulp.task('docs', function() {
         }))
         .pipe(rename('index.html'))
         .pipe(gulp.dest(paths.dest.index))
+});
+
+gulp.task('testDocs', function() {
+    var testSrcPath = path.join(__dirname, '..', 'test'),
+        testFiles = walk(testSrcPath);
+
+    testFiles.forEach(function(testFilePath, i) {
+        if(i > 0) return;
+        var content = fs.readFileSync(testFilePath, 'utf8');
+        
+        console.log(htmlreplace({
+            content: content
+        }));
+
+        console.log(__dirname, process.cwd(), paths.dest.test);
+        gulp.src(paths.source.test_template)
+            .pipe(htmlreplace({
+                content: content
+            }))
+            .pipe(rename(testFilePath + '.html'))
+            .pipe(gulp.dest( path.join(__dirname, paths.dest.test)) )
+    });
 });
 
 gulp.task('watch', function() {
