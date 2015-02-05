@@ -16,15 +16,17 @@
         "utilities"
     ],
     "devDependencies": {
-        "karma": "^0.12.16",
-        "karma-jasmine": "^0.1.5",
-        "karma-chrome-launcher": "^0.1.4",
         "browserify": "^8.1.1",
         "gulp": "^3.8.10",
-        "gulp-uglify": "^1.1.0",
+        "gulp-html-replace": "^1.4.3",
         "gulp-rename": "^1.2.0",
-        "vinyl-source-stream": "^1.0.0",
+        "gulp-uglify": "^1.1.0",
+        "karma": "^0.12.16",
+        "karma-chrome-launcher": "^0.1.4",
+        "karma-jasmine": "^0.1.5",
+        "marked": "^0.3.3",
+        "mb-strings": "^0.2.2",
         "vinyl-buffer": "^1.0.0",
-        "gulp-html-replace": "^1.4.3"
+        "vinyl-source-stream": "^1.0.0"
     }
 }

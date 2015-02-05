@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>cfx.window | cfx-js | CARFAX</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/src.css">
+    <link rel="stylesheet" href="../highlight/styles/hybrid.css">
+    <script src="../highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h1>cfx.window - Source</h1>
+    
+    <article>
+        
+        <pre><code class="javascript">var win = module.exports = {};
+
+/**
+ * Alias for window.location.hostname
+ * @type {string}
+ */
+win.domain = window.location.hostname;
+
+/**
+ * Alias for window.location.pathname
+ * @type {string}
+ */
+win.path = window.location.pathname;
+
+/**
+ * Redirects the current window to the given URL
+ * @param {String} url
+ */
+win.redirect = function(url) {
+    window.location.href = url;
+};
+
+/**
+ * Calculates the vertical scroll distance from the top of the window.
+ * @returns {Number} distance in pixels
+ */
+win.scrollY = function() {
+    return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+};</code></pre>
+        
+    </article>
+</body>
+</html>

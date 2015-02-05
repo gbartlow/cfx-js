@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>cfx.paths.join | cfx-js | CARFAX</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/src.css">
+    <link rel="stylesheet" href="../highlight/styles/hybrid.css">
+    <script src="../highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h1>cfx.paths.join - Source</h1>
+    
+    <article>
+        
+        <pre><code class="javascript">/**
+ * Joins any number of paths together, normalizing slashes (/ vs \), and removing duplicate slashes.
+ * @param {String...} paths the paths to be joined
+ * @returns {string} the final path
+ */
+var join = function(paths) {
+    var paths = Array.prototype.slice.call(arguments, 0);
+
+    return paths.join('/')
+        .replace(/\\/g, '/')
+        .replace(/(\/\/+)/g, '/');
+};
+
+module.exports = join;</code></pre>
+        
+    </article>
+</body>
+</html>

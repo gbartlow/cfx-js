@@ -14,6 +14,8 @@ To include the code, either
 
 or
 
-    <script src='bower_components/cfx-js/dist/cfx.js'></script>
+```html
+<script src='bower_components/cfx-js/dist/cfx.js'></script>
+```
 
 From that point on, everything in this library will be accessible via the cfx object.

@@ -5,6 +5,9 @@
     <title>cfx-js | CARFAX</title>
     <link rel="stylesheet" href="docs/css/base.css">
     <link rel="stylesheet" href="docs/css/style.css">
+    <link rel="stylesheet" href="docs/highlight/styles/hybrid.css">
+    <script src="docs/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
     <aside>
@@ -18,5 +21,14 @@
         <!-- endbuild -->
     </article>
 
+    <div class="cabinet-container">
+        <div class="cabinet-shadow"></div>
+        <section class="cabinet">
+            <div class="close btn">X</div>
+            <div class="content"></div>
+        </section>
+    </div>
+
+    <script src="docs/cabinet.js"></script>
 </body>
 </html>

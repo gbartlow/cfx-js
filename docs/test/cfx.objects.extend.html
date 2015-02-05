@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>cfx.objects.extend | cfx-js | CARFAX</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/test.css">
+    <link rel="stylesheet" href="../highlight/styles/hybrid.css">
+    <script src="../highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h1>cfx.objects.extend - Tests</h1>
+    
+    <article>
+        
+        <pre><code class="javascript">describe('objects', function() {
+    describe('extend', function() {
+        it('should add the given properties', function () {
+            var a = { foo: 'bar', bar: 'foo' };
+
+            var b = cfx.objects.extend(a, {
+                derp: 'herp'
+            });
+
+            expect(b.foo).toEqual(a.foo);
+            expect(b.bar).toEqual(a.bar);
+            expect(b.derp).toEqual('herp');
+        });
+
+        it('should clone the original', function () {
+            var a = { foo: 'bar', bar: 'foo' };
+
+            var b = cfx.objects.extend(a, {
+                derp: 'herp'
+            });
+            a.foo = 'a.foo';
+
+            expect(a.foo).toEqual('a.foo');
+            expect(b.foo).toEqual('bar');
+            expect(b.bar).toEqual(a.bar);
+            expect(b.derp).toEqual('herp');
+        });
+
+        it('should modify the original', function () {
+            var a = { foo: 'bar', bar: 'foo' };
+
+            cfx.objects.extend(a, {
+                derp: 'herp'
+            }, true);
+
+            expect(a.derp).toEqual('herp');
+        });
+
+        it('should use {} as a default for b', function () {
+            var a = { foo: 'bar', bar: 'foo' };
+
+            var b = cfx.objects.extend(a);
+
+            expect(a).toEqual(b);
+        });
+    });
+});</code></pre>
+        
+    </article>
+</body>
+</html>
