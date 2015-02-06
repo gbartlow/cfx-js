@@ -27,6 +27,11 @@ or
 
 At that point, you should have access to the library via the ''cfx'' variable.
 
+Documentation
+-----
+
+Documented examples can be found at [carfax.github.io/cfx-js](http://carfax.github.io/cfx-js/)
+
 Contact & License Info
 -----
 
