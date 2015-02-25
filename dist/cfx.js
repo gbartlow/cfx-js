@@ -9,7 +9,7 @@ cfx.arrays = require('./arrays');
 cfx.events = require('./events');
 cfx.paths = require('./paths');
 cfx.strings = require('./strings');
-},{"./arrays":3,"./env":10,"./events":11,"./objects":12,"./paths":18,"./strings":21,"./window":23}],2:[function(require,module,exports){
+},{"./arrays":3,"./env":10,"./events":11,"./objects":12,"./paths":18,"./strings":22,"./window":24}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -350,7 +350,7 @@ env.determine = function() {
  */
 env.ENV = env.determine();
 }).call(this,require('_process'))
-},{"./window":23,"_process":2}],11:[function(require,module,exports){
+},{"./window":24,"_process":2}],11:[function(require,module,exports){
 var events = module.exports = {};
 
 var eventList = {};
@@ -515,7 +515,8 @@ var paths = module.exports = {};
 
 paths.join = require('./paths/join');
 paths.format = require('./paths/format');
-},{"./paths/format":19,"./paths/join":20}],19:[function(require,module,exports){
+paths.queryString = require('./paths/queryString');
+},{"./paths/format":19,"./paths/join":20,"./paths/queryString":21}],19:[function(require,module,exports){
 var join = require('./join');
 
 var pattern = new RegExp(':([a-zA-Z0-9]+)([\\?]*)', 'gi');
@@ -572,10 +573,34 @@ var join = function(paths) {
 
 module.exports = join;
 },{}],21:[function(require,module,exports){
+/**
+ * Constructs a query string from an object of key-value pairs
+ * @param {Object} values key-value pairs to fill the string with
+ * @returns {string} a query string
+ */
+var queryString = function(values) {
+    var string;
+
+    for(var key in values) {
+        if(!values.hasOwnProperty(key)) continue;
+        var value = values[key];
+
+        if(!string) {
+            string = '?' + key + '=' + value;
+        } else {
+            string += '&' + key + '=' + value;
+        }
+    }
+
+    return string;
+};
+
+module.exports = queryString;
+},{}],22:[function(require,module,exports){
 var strings = module.exports = {};
 
 strings.replace = require('./strings/replace');
-},{"./strings/replace":22}],22:[function(require,module,exports){
+},{"./strings/replace":23}],23:[function(require,module,exports){
 /**
  * Formats a string by replacing ${#} with it's numerically corresponding argument.
  * eg: <i>formatString("Hello ${0}! Good to see ${1}", 'World', 'you!')</i> returns <i>"Hello World! Good to see you!"</i>
@@ -628,7 +653,7 @@ replace.format = function(left, right) {
 };
 
 module.exports = replace;
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 var win = module.exports = {};
 
 /**
