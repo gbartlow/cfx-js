@@ -53,3 +53,14 @@ Can be used with optional parameters. If a value is not given for the parameter,
         prop: 'wheels'
     })
     >> '/api/cars/123/wheels'
+
+## queryString(values)
+
+Constructs a query string from an object.
+
+    cfx.paths.queryString({
+        resource: 'cars',
+        id: 123,
+        foo: 'bar'
+    })
+    >> '?resources=cars&id=123&foo=bar'

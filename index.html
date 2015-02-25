@@ -12,7 +12,7 @@
 <body>
     <aside>
         <h1>cfx-js by CARFAX</h1>
-        <label>cfx.arrays</label><a href='#cfx.arrays.forEach'>forEach()</a><a href='#cfx.arrays.generate'>generate()</a><a href='#cfx.arrays.remove'>remove()</a><a href='#cfx.arrays.removeAt'>removeAt()</a><a href='#cfx.arrays.removeWhere'>removeWhere()</a><a href='#cfx.arrays.simultaneous'>simultaneous()</a><label>cfx.env</label><a href='#cfx.env.Level Constants'>Level Constants</a><a href='#cfx.env.ENV'>ENV</a><a href='#cfx.env.isBrowser'>isBrowser()</a><a href='#cfx.env.determine'>determine()</a><label>cfx.events</label><a href='#cfx.events.on'>on()</a><a href='#cfx.events.trigger'>trigger()</a><a href='#cfx.events.Multiple listeners'>Multiple listeners</a><label>cfx.objects</label><a href='#cfx.objects.clone'>clone()</a><a href='#cfx.objects.contains'>contains()</a><a href='#cfx.objects.extend'>extend()</a><a href='#cfx.objects.forEach'>forEach()</a><a href='#cfx.objects.toArray'>toArray()</a><label>cfx.paths</label><a href='#cfx.paths.join'>join()</a><a href='#cfx.paths.format'>format()</a><label>cfx.strings</label><a href='#cfx.strings.replace'>replace()</a><label>cfx.window</label><a href='#cfx.window.domain'>domain</a><a href='#cfx.window.path'>path</a><a href='#cfx.window.redirect'>redirect()</a>
+        <label>cfx.arrays</label><a href='#cfx.arrays.forEach'>forEach()</a><a href='#cfx.arrays.generate'>generate()</a><a href='#cfx.arrays.remove'>remove()</a><a href='#cfx.arrays.removeAt'>removeAt()</a><a href='#cfx.arrays.removeWhere'>removeWhere()</a><a href='#cfx.arrays.simultaneous'>simultaneous()</a><label>cfx.env</label><a href='#cfx.env.Level Constants'>Level Constants</a><a href='#cfx.env.ENV'>ENV</a><a href='#cfx.env.isBrowser'>isBrowser()</a><a href='#cfx.env.determine'>determine()</a><label>cfx.events</label><a href='#cfx.events.on'>on()</a><a href='#cfx.events.trigger'>trigger()</a><a href='#cfx.events.Multiple listeners'>Multiple listeners</a><label>cfx.objects</label><a href='#cfx.objects.clone'>clone()</a><a href='#cfx.objects.contains'>contains()</a><a href='#cfx.objects.extend'>extend()</a><a href='#cfx.objects.forEach'>forEach()</a><a href='#cfx.objects.toArray'>toArray()</a><label>cfx.paths</label><a href='#cfx.paths.join'>join()</a><a href='#cfx.paths.format'>format()</a><a href='#cfx.paths.queryString'>queryString()</a><label>cfx.strings</label><a href='#cfx.strings.replace'>replace()</a><label>cfx.window</label><a href='#cfx.window.domain'>domain</a><a href='#cfx.window.path'>path</a><a href='#cfx.window.redirect'>redirect()</a>
     </aside>
 
     <article>
@@ -170,7 +170,13 @@ cfx.paths.format('/api/:resource/:id?/:prop?', {
     id: 123,
     prop: 'wheels'
 })
-&gt;&gt; '/api/cars/123/wheels'</code></pre><a class='btn src' target='_blank' href='docs/src/cfx.strings.html'>Source</a><h2 id='cfx.strings'>cfx.strings</h2><p>Manipulation of strings.</p>
+&gt;&gt; '/api/cars/123/wheels'</code></pre><a class='btn src' target='_blank' href='docs/src/cfx.paths.queryString.html'>Source</a><a class='btn test' target='_blank' href='docs/test/cfx.paths.queryString.html'>Tests</a><a class='anchor' name='cfx.paths.queryString' href='#'></a><h3 id='cfx.paths.queryString'>queryString(values)</h3><p>Constructs a query string from an object.</p>
+<pre><code class='javascript'>cfx.paths.queryString({
+    resource: 'cars',
+    id: 123,
+    foo: 'bar'
+})
+&gt;&gt; '?resources=cars&id=123&foo=bar'</code></pre><a class='btn src' target='_blank' href='docs/src/cfx.strings.html'>Source</a><h2 id='cfx.strings'>cfx.strings</h2><p>Manipulation of strings.</p>
 <a class='btn src' target='_blank' href='docs/src/cfx.strings.replace.html'>Source</a><a class='btn test' target='_blank' href='docs/test/cfx.strings.replace.html'>Tests</a><a class='anchor' name='cfx.strings.replace' href='#'></a><h3 id='cfx.strings.replace'>replace(string, values...)</h3><p>Interpolates values into a string, using ${KEY} as the format.</p>
 <p>Can be used with multiple arguments, or with an object.</p>
 <pre><code class='javascript'>cfx.strings.replace('Hello ${thing}!', 'World')
