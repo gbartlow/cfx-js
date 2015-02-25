@@ -1,6 +1,6 @@
 {
     "name": "cfx-js",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "A CARFAX JavaScript library that provides functions to help build more efficient and testable JS applications.",
     "author": "CARFAX FCF Team <firstclassfrontend@carfax.com>",
     "main": "src/cfx.js",

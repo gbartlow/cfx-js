@@ -1,4 +1,4 @@
-describe('strings', function() {
+describe('paths', function() {
     describe('replace', function() {
 
         describe('all required params', function () {
