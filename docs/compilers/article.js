@@ -32,6 +32,7 @@ renderer.heading = function (text, level) {
     }
 
     if(hasTestFile(anchor)) {
+        console.log('has test', anchor);
         template = "<a class='btn test' target='_blank' href='docs/test/{anchor}.html'>Tests</a>" + template;
     }
     if(hasSrcFile(anchor)) {

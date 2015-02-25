@@ -5,7 +5,7 @@ var fs = require('fs'),
 
 module.exports = function() {
     var template = fs.readFileSync('template_test.html', 'utf8');
-    var testSrcPath = path.join(__dirname, '..', 'test'),
+    var testSrcPath = path.join(__dirname, '..', '..', 'test'),
         testFiles = walk(testSrcPath);
 
     testFiles.forEach(function(testFilePath, i) {
