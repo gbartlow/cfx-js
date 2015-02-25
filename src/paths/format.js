@@ -1,0 +1,40 @@
+var join = require('./join');
+
+var pattern = new RegExp(':([a-zA-Z0-9]+)([\\?]*)', 'gi');
+
+var format = function(path) {
+    var params = Array.prototype.slice.call(arguments, 1);
+    if (params.length == 0) return path;
+
+    // If first and only param is an object, use as a map
+    if(params.length == 1 && typeof params[0] === 'object') {
+        params = params[0];
+    } else {
+        params = (path.match(pattern) || [])        // get list of keys
+            .filter(function(item, pos, self) {     // remove duplicates
+                return self.indexOf(item) == pos;
+            })
+            .reduce(function(map, key, i) {         // turn into map of { key: value }
+                key = key.replace(new RegExp('[^a-zA-Z0-9]', 'gi'), '');
+                map[key] = params[i];
+                return map;
+            }, {});
+    }
+
+    // Replace all keys with given params
+    for (var param in params) {
+        if (!params.hasOwnProperty(param)) continue;
+        var value = typeof params[param] !== 'undefined' ? params[param] : '';
+        path = path.replace(new RegExp(':' + param + '([\\?]*)', 'gi'), value);
+    }
+
+    // Removes any optional parameters (:name?, :name?/)
+    path = path.replace(/(:)[^\/]*(\?)(\/*)/g, '');
+
+    // Remove trailing slash
+    path = path.replace(/(\/+)$/, '');
+
+    return join(path); // normalize the path
+};
+
+module.exports = format;

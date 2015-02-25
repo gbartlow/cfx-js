@@ -8,7 +8,8 @@ cfx.objects = require('./objects');
 cfx.arrays = require('./arrays');
 cfx.events = require('./events');
 cfx.paths = require('./paths');
-},{"./arrays":3,"./env":10,"./events":11,"./objects":12,"./paths":18,"./window":20}],2:[function(require,module,exports){
+cfx.strings = require('./strings');
+},{"./arrays":3,"./env":10,"./events":11,"./objects":12,"./paths":18,"./strings":21,"./window":23}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -349,7 +350,7 @@ env.determine = function() {
  */
 env.ENV = env.determine();
 }).call(this,require('_process'))
-},{"./window":20,"_process":2}],11:[function(require,module,exports){
+},{"./window":23,"_process":2}],11:[function(require,module,exports){
 var events = module.exports = {};
 
 var eventList = {};
@@ -513,7 +514,49 @@ module.exports = toArray;
 var paths = module.exports = {};
 
 paths.join = require('./paths/join');
-},{"./paths/join":19}],19:[function(require,module,exports){
+paths.format = require('./paths/format');
+},{"./paths/format":19,"./paths/join":20}],19:[function(require,module,exports){
+var join = require('./join');
+
+var pattern = new RegExp(':([a-zA-Z0-9]+)([\\?]*)', 'gi');
+
+var format = function(path) {
+    var params = Array.prototype.slice.call(arguments, 1);
+    if (params.length == 0) return path;
+
+    // If first and only param is an object, use as a map
+    if(params.length == 1 && typeof params[0] === 'object') {
+        params = params[0];
+    } else {
+        params = (path.match(pattern) || [])        // get list of keys
+            .filter(function(item, pos, self) {     // remove duplicates
+                return self.indexOf(item) == pos;
+            })
+            .reduce(function(map, key, i) {         // turn into map of { key: value }
+                key = key.replace(new RegExp('[^a-zA-Z0-9]', 'gi'), '');
+                map[key] = params[i];
+                return map;
+            }, {});
+    }
+
+    // Replace all keys with given params
+    for (var param in params) {
+        if (!params.hasOwnProperty(param)) continue;
+        var value = typeof params[param] !== 'undefined' ? params[param] : '';
+        path = path.replace(new RegExp(':' + param + '([\\?]*)', 'gi'), value);
+    }
+
+    // Removes any optional parameters (:name?, :name?/)
+    path = path.replace(/(:)[^\/]*(\?)(\/*)/g, '');
+
+    // Remove trailing slash
+    path = path.replace(/(\/+)$/, '');
+
+    return join(path); // normalize the path
+};
+
+module.exports = format;
+},{"./join":20}],20:[function(require,module,exports){
 /**
  * Joins any number of paths together, normalizing slashes (/ vs \), and removing duplicate slashes.
  * @param {String...} paths the paths to be joined
@@ -528,7 +571,64 @@ var join = function(paths) {
 };
 
 module.exports = join;
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
+var strings = module.exports = {};
+
+strings.replace = require('./strings/replace');
+},{"./strings/replace":22}],22:[function(require,module,exports){
+/**
+ * Formats a string by replacing ${#} with it's numerically corresponding argument.
+ * eg: <i>formatString("Hello ${0}! Good to see ${1}", 'World', 'you!')</i> returns <i>"Hello World! Good to see you!"</i>
+ * @param {string} subject The source string to perform the format on
+ * @returns {string} the formatted string
+ */
+function replace(subject) {
+    var args = Array.prototype.slice.call(arguments, 1),
+        pattern = this.pattern || replace.pattern,
+        map;
+
+    // If first and only arg is an object, assume this object is to be used to format the string, using a key-value relationship
+    if(typeof args[0] === 'object') {
+        map = args[0];
+        return subject.replace(pattern, function(match, key) {
+            if( typeof map[key] == 'undefined' ) return match;
+            return map[key];
+        });
+    }
+
+    map = (subject.match(pattern) || [])        // get list of keys
+        .filter(function(item, pos, self) {     // remove duplicates
+            return self.indexOf(item) == pos;
+        })
+        .reduce(function(map, key, i) {         // turn into map of { key: value }
+            map[key] = args[i];
+            return map;
+        }, {});
+
+    return subject.replace(pattern, function(match) {
+        if( typeof map[match] == 'undefined' ) return match;
+        return map[match];
+    });
+}
+
+/**
+ * Pattern used by replace to find keys in a string
+ * @type {RegExp}
+ */
+replace.pattern = /\${(.+?)}/g;
+
+/**
+ * Replaces the pattern that replace uses to find keys. The given strings will be placed into a RegExp, so escape accordingly.
+ * @param left {string} left marker ('\\${' in ${TOKEN})
+ * @param right {string} right marker ('}' in ${TOKEN})
+ */
+replace.format = function(left, right) {
+    var pattern = new RegExp(left+"(.+?)"+right, 'g');
+    return replace.bind({ pattern: pattern });
+};
+
+module.exports = replace;
+},{}],23:[function(require,module,exports){
 var win = module.exports = {};
 
 /**
