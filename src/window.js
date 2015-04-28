@@ -1,5 +1,8 @@
 var win = module.exports = {};
 
+// If window is not present, immediately return
+if(typeof window === 'undefined') return;
+
 /**
  * Alias for window.location.hostname
  * @type {string}
