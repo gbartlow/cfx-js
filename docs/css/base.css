@@ -5,37 +5,14 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: Calibri, Arial, Helvetica, sans-serif;
-  font-size: 0;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0 0 0.25em 0;
-}
-h1 {
-  font-size: 36px;
-  text-align: center;
-  display: block;
-  border-bottom: 2px solid #ddd;
-}
-h2 {
-  font-size: 28px;
-}
-h3 {
-  color: #4a4a4a;
-  text-indent: 1em;
 }
 code,
 blockquote {
-  font-size: 14px;
+  font-size: 16px;
   background: #f2f2f2;
   padding: 2px 4px;
   border-radius: 3px;
-  line-height: 1;
+  line-height: 1.4;
   color: #000;
   font-family: consolas, menlo, monaco, monospace;
 }
@@ -52,22 +29,20 @@ pre code {
   padding: 0.5em;
   background: #f2f2f2;
 }
-.btn {
-  text-decoration: none;
-  padding: 0.25em 0.5em;
-  background: #f2f2f2;
-  border-radius: 5px;
+.object-header {
+  margin-top: 1.5em;
   color: #007fb2;
-  cursor: pointer;
 }
-.btn:hover {
-  background: #007fb2;
-  color: #fff;
+.object-header + p {
+  margin-bottom: 2em;
+}
+.member-header {
+  margin-top: 1.5em;
 }
 .btn.test,
 .btn.src {
   float: right;
   font-size: 12px;
-  margin-top: 12px;
+  margin-top: 55px;
   margin-left: 0.5em;
 }

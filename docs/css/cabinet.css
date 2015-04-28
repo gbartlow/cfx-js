@@ -1,0 +1,44 @@
+.cabinet-container.visible .cabinet-shadow {
+  right: 0;
+  opacity: 1;
+}
+.cabinet-container.visible .cabinet {
+  right: 0;
+  box-shadow: -3px 0 6px rgba(0,0,0,0.05);
+}
+.cabinet-shadow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background: rgba(0,0,0,0.33);
+  opacity: 0;
+  right: -100%;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
+}
+.cabinet {
+  position: fixed;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  right: -50%;
+  border-left: 1px solid #ccc;
+  box-sizing: border-box;
+  transition: right 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background: #fff;
+  z-index: 1001;
+}
+.cabinet .close {
+  font-size: 18px;
+  position: absolute;
+  top: 8px;
+  left: 11px;
+  line-height: 2.1;
+}
+.cabinet .content {
+  height: 100%;
+}
+.cabinet iframe {
+  border: 0;
+}
